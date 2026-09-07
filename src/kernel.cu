@@ -266,8 +266,12 @@ __device__ glm::vec3 computeVelocityChange(int N, int iSelf, const glm::vec3 *po
     }
   }
 
-  perceived_center /= neighbor_count_rule1;
-  velocity_change += (perceived_center - pos[iSelf]) * rule1Scale;
+  if (neighbor_count_rule1 > 0) {
+      perceived_center /= neighbor_count_rule1;
+      velocity_change += (perceived_center - pos[iSelf]) * rule1Scale;
+  }
+
+
 
   // Rule 2: boids try to stay a distance d away from each other
   for (int i = 0; i < N; i++) {
@@ -293,8 +297,10 @@ __device__ glm::vec3 computeVelocityChange(int N, int iSelf, const glm::vec3 *po
     }
   }
 
-  perceived_velocity /= neighbor_count_rule3;
-  velocity_change += perceived_velocity * rule3Scale;
+  if (neighbor_count_rule3 > 0) {
+      perceived_velocity /= neighbor_count_rule3;
+      velocity_change += perceived_velocity * rule3Scale;
+  }
 
   return velocity_change;
 }
