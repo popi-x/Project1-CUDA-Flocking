@@ -20,11 +20,12 @@ Project 1 - Flocking**
 
 **Q:** Before `kernIdentifyCellStartEnd` runs, `dev_gridCellStartIndices` and `dev_gridCellEndIndices` are first reset to -1 with `kernResetIntBuffer`. Consider how this could be useful for indicating that a cell does not enclose any boids.
 
-**A:** Without this reset step, a cell that happens to have no boids in it this frame is never written to by `kernIdentifyCellStartEnd` (which only touches cells that actually appear in the sorted `dev_particleGridIndices` array), so its start/end indices would silently keep whatever stale values were left over from a previous frame. Resetting both buffers to -1 first guarantees that any cell nobody wrote to this frame is unambiguously marked as empty, so the neighbor search kernel can safely detect and skip it (`if (start == -1) continue;`) instead of reading garbage or, worse, an outdated range from a different frame's grid layout.
+**A:** Without this reset step, a cell that happens to have no boids in it this frame is never written to by `kernIdentifyCellStartEnd` (which only touches cells that actually appear in the sorted `dev_particleGridIndices` array), so its start/end indices would keep whatever stale values were left over from a previous frame. 
+
 
 ### 2.2 — Pushing the limits
 
-The uniform grid is dramatically faster than the naive brute-force search in the typical case — as boid count grows, naive's all-pairs check becomes the bottleneck almost immediately, while the uniform grid keeps each boid's search limited to its local neighborhood. Pushing the boid count up to 20,000 (uniform grid, visualization on) still runs, but framerate drops sharply to around 170 FPS:
+The uniform grid is dramatically faster than the naive brute-force search in the typical case 
 
 ![20000 Boids](images/boid20000.gif)
 
