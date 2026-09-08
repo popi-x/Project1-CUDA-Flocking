@@ -8,9 +8,13 @@ Project 1 - Flocking**
 
 <table>
 <tr>
-<td align="center"><img src="images/brute-force.gif" width="280"/><br><sub>Naive (Brute Force)</sub></td>
-<td align="center"><img src="images/part2-1.gif" width="280"/><br><sub>Uniform Grid</sub></td>
-<td align="center"><img src="images/coherent.gif" width="280"/><br><sub>Coherent Uniform Grid</sub></td>
+<td align="center"><img src="images/brute-force.gif" width="600"/><br><sub>Naive (Brute Force)</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="images/part2-1.gif" width="600"/><br><sub>Uniform Grid</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="images/coherent.gif" width="600"/><br><sub>Coherent Uniform Grid</sub></td>
 </tr>
 </table>
 
